@@ -33,3 +33,4 @@ CREATE TABLE item (
     -- Todo item começa como não devolvido
     devolvido        BOOLEAN      NOT NULL DEFAULT FALSE
 );
+
