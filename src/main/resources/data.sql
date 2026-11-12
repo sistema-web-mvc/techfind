@@ -1,7 +1,7 @@
 -- =====================================================================
 -- TechFind - dados de exemplo
 -- Executado logo depois do schema.sql. Como o H2 está em memória,
--- os dados voltam a ser estes 4 itens toda vez que a aplicação reinicia.
+-- os dados voltam a ser estes 5 itens toda vez que a aplicação reinicia.
 -- O id não é informado: o banco gera sozinho (AUTO_INCREMENT).
 -- =====================================================================
 
@@ -16,3 +16,6 @@ VALUES ('ENCONTRADO', 'Carregador de notebook', 'Fonte preta encontrada em cima 
 
 INSERT INTO item (tipo, titulo, descricao, categoria, localizacao, data_ocorrencia, nome_contato, email_contato, telefone_contato, devolvido)
 VALUES ('PERDIDO', 'Carteirinha de estudante', 'Carteirinha em nome de Pedro Alves', 'Documentos', 'Cantina', '2026-10-28', 'Pedro Alves', 'pedro@estudante.iftm.edu.br', '(34) 97777-2222', FALSE);
+
+INSERT INTO item (tipo, titulo, descricao, categoria, localizacao, data_ocorrencia, nome_contato, email_contato, telefone_contato, devolvido)
+VALUES ('ENCONTRADO', 'Chaveiro com duas chaves', 'Chaveiro de metal com chave de armário e chave pequena', 'Chaves', 'Pátio', '2026-11-03', 'Carlos Mendes', 'carlos@estudante.iftm.edu.br', '(34) 96666-3333', FALSE);
