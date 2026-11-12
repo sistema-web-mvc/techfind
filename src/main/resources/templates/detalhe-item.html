@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalhe do item - TechFind</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div th:replace="~{fragments/layout :: navbar}"></div>
+
+    <main class="container my-4">
+
+        <!-- Trilha de navegação -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Início</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Garrafa térmica azul</li>
+            </ol>
+        </nav>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+
+                <div class="card">
+                    <div class="card-body p-4">
+                        <span class="badge bg-danger mb-2">Perdido</span>
+                        <h1 class="h3">Garrafa térmica azul</h1>
+                        <p class="text-muted">
+                            Garrafa de inox azul-marinho, 500 ml, com um adesivo do IFTM na tampa.
+                        </p>
+
+                        <hr>
+
+                        <!-- Dados do item -->
+                        <dl class="row mb-0">
+                            <dt class="col-sm-3">Categoria</dt>
+                            <dd class="col-sm-9">Garrafas e utensílios</dd>
+
+                            <dt class="col-sm-3">Local</dt>
+                            <dd class="col-sm-9">Biblioteca</dd>
+
+                            <dt class="col-sm-3">Data</dt>
+                            <dd class="col-sm-9">27/10/2026</dd>
+
+                            <dt class="col-sm-3">Status</dt>
+                            <dd class="col-sm-9"><span class="badge bg-secondary">Aberto</span></dd>
+                        </dl>
+
+                        <!-- Contato -->
+                        <div class="alert alert-info mt-4 mb-0">
+                            <h2 class="h6 mb-2">Reconheceu? Fale com quem publicou</h2>
+                            <p class="mb-1"><strong>Maria Souza</strong></p>
+                            <p class="mb-1">E-mail: maria@estudante.iftm.edu.br</p>
+                            <p class="mb-0">Telefone: (34) 99999-0000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marcar como devolvido -->
+                <div class="card mt-3">
+                    <div class="card-body p-4 d-flex justify-content-between align-items-center gap-3">
+                        <p class="mb-0 text-muted">Este item já voltou para o dono?</p>
+                        <form onsubmit="return confirm('Tem certeza de que este item já foi devolvido?');">
+                            <button type="submit" class="btn btn-success">Marcar como devolvido</button>
+                        </form>
+                    </div>
+                </div>
+                <a href="/" class="btn btn-outline-secondary mt-3">← Voltar para a lista</a>
+
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/layout :: rodape}"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
