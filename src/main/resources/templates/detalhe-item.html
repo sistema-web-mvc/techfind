@@ -18,7 +18,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Garrafa térmica azul</li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${item.titulo}">Título</li>
             </ol>
         </nav>
 
@@ -27,10 +27,8 @@
 
                 <div class="card">
                     <div class="card-body p-4">
-                        <span class="badge bg-danger mb-2">Perdido</span>
-                        <h1 class="h3">Garrafa térmica azul</h1>
-                        <p class="text-muted">
-                            Garrafa de inox azul-marinho, 500 ml, com um adesivo do IFTM na tampa.
+                        <h1 class="h3" th:text="${item.titulo}">Título</h1>
+                        <p class="text-muted" th:if="${item.descricao != null}" th:text="${item.descricao}">Descrição
                         </p>
 
                         <hr>
@@ -38,24 +36,29 @@
                         <!-- Dados do item -->
                         <dl class="row mb-0">
                             <dt class="col-sm-3">Categoria</dt>
-                            <dd class="col-sm-9">Garrafas e utensílios</dd>
+                            <dd class="col-sm-9" th:text="${item.categoria}">Categoria</dd>
 
                             <dt class="col-sm-3">Local</dt>
-                            <dd class="col-sm-9">Biblioteca</dd>
+                            <dd class="col-sm-9" th:text="${item.localizacao}">Local</dd>
 
                             <dt class="col-sm-3">Data</dt>
-                            <dd class="col-sm-9">27/10/2026</dd>
+                            <dd class="col-sm-9" th:text="${#temporals.format(item.dataOcorrencia, 'dd/MM/yyyy')}">
+                                00/00/0000</dd>
 
                             <dt class="col-sm-3">Status</dt>
-                            <dd class="col-sm-9"><span class="badge bg-secondary">Aberto</span></dd>
+                            <dd class="col-sm-9">
+                                <span class="badge" th:classappend="${item.devolvido} ? 'bg-success' : 'bg-secondary'"
+                                    th:text="${item.devolvido} ? 'Devolvido' : 'Aberto'">Aberto</span>
+                            </dd>
                         </dl>
 
                         <!-- Contato -->
                         <div class="alert alert-info mt-4 mb-0">
                             <h2 class="h6 mb-2">Reconheceu? Fale com quem publicou</h2>
-                            <p class="mb-1"><strong>Maria Souza</strong></p>
-                            <p class="mb-1">E-mail: maria@estudante.iftm.edu.br</p>
-                            <p class="mb-0">Telefone: (34) 99999-0000</p>
+                            <p class="mb-1"><strong th:text="${item.nomeContato}">Nome</strong></p>
+                            <p class="mb-1">E-mail: <span th:text="${item.emailContato}">email</span></p>
+                            <p class="mb-0" th:if="${item.telefoneContato != null}">Telefone: <span
+                                    th:text="${item.telefoneContato}">telefone</span></p>
                         </div>
                     </div>
                 </div>

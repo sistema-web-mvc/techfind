@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Item {
 
     private Long id;                  // id               BIGINT
-    private TipoItem tipo;            // tipo             VARCHAR(20)
+    // private TipoItem tipo;            // tipo             VARCHAR(20)
     private String titulo;            // titulo           VARCHAR(100)
     private String descricao;         // descricao        VARCHAR(500)
     private String categoria;         // categoria        VARCHAR(50)
@@ -22,8 +22,8 @@ public class Item {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public TipoItem getTipo() { return tipo; }
-    public void setTipo(TipoItem tipo) { this.tipo = tipo; }
+    // public TipoItem getTipo() { return tipo; }
+    // public void setTipo(TipoItem tipo) { this.tipo = tipo; }
 
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }

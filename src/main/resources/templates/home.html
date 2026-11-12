@@ -23,50 +23,23 @@
         </form>
 
         <!-- Cards dos itens -->
+       <!-- Cards dos itens (um card para cada item vindo do banco) -->
         <div class="row g-3">
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-4" th:each="item : ${itens}">
                 <div class="card h-100">
                     <div class="card-body">
-                        <span class="badge bg-danger mb-2">Perdido</span>
-                        <h5 class="card-title">Garrafa térmica azul</h5>
-                        <p class="card-text text-muted">Biblioteca · 27/10/2026</p>
-                        <a href="/itens/detalhe" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <span class="badge bg-danger mb-2">Perdido</span>
-                        <h5 class="card-title">Carregador de Celular Samsung</h5>
-                        <p class="card-text text-muted">Biblioteca · 30/10/2026</p>
-                        <a href="/itens/detalhe" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <span class="badge bg-success mb-2">Encontrado</span>
-                        <h5 class="card-title">Carregador de notebook</h5>
-                        <p class="card-text text-muted">Laboratório 3 · 28/10/2026</p>
-                        <a href="/itens/detalhe" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <span class="badge bg-danger mb-2">Perdido</span>
-                        <h5 class="card-title">Carteirinha de estudante</h5>
-                        <p class="card-text text-muted">Cantina · 28/10/2026</p>
-                        <a href="/itens/detalhe" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                        <span class="badge bg-secondary mb-2" th:if="${item.devolvido}">Devolvido</span>
+                        <h5 class="card-title" th:text="${item.titulo}">Título do item</h5>
+                        <p class="card-text text-muted"
+                           th:text="${item.localizacao + ' · ' + #temporals.format(item.dataOcorrencia, 'dd/MM/yyyy')}">
+                            Local · 00/00/0000</p>
+                        <a th:href="@{/itens/{id}(id=${item.id})}" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <p class="text-muted" th:if="${#lists.isEmpty(itens)}">Nenhum item cadastrado ainda.</p>
     </main>
 
     <div th:replace="~{fragments/layout :: rodape}"></div>
