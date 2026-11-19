@@ -32,4 +32,16 @@ public class ItemController {
         model.addAttribute("item", item);
         return "detalhe-item";
     }
+
+    // ===== E3 · Criar item (Alfredo) =====
+    // (os métodos novo e criar entram aqui)
+
+    // ===== E3 · Editar item (Yamada) =====
+    // (os métodos editar e atualizar entram aqui)
+
+    // ===== E3 · Excluir item (Felipe Nogueira) =====
+    // (o método excluir entra aqui)
+
+    // ===== E3 · Marcar como devolvido (Luany) =====
+    // (o método devolver entra aqui)
 }
