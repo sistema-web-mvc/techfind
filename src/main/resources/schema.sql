@@ -4,6 +4,10 @@
 -- toda vez que a aplicação inicia (banco H2 em memória).
 -- =====================================================================
 
+-- Remove a tabela se ela já existir, para o script poder rodar
+-- quantas vezes for preciso sem dar erro de "tabela já existe".
+DROP TABLE IF EXISTS item;
+
 CREATE TABLE item (
     -- Número do item, gerado sozinho pelo banco (1, 2, 3...)
     id               BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -33,4 +37,3 @@ CREATE TABLE item (
     -- Todo item começa como não devolvido
     devolvido        BOOLEAN      NOT NULL DEFAULT FALSE
 );
-
