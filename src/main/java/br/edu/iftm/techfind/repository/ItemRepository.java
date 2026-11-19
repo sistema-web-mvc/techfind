@@ -14,12 +14,13 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import br.edu.iftm.techfind.model.Item;
+import br.edu.iftm.techfind.model.TipoItem;
 
 @Repository
 public class ItemRepository {
 
     private static final String COLUNAS = """
-            id, titulo, descricao, categoria, localizacao, data_ocorrencia,
+            id, tipo, titulo, descricao, categoria, localizacao, data_ocorrencia,
             nome_contato, email_contato, telefone_contato, devolvido
             """;
 
@@ -33,6 +34,8 @@ public class ItemRepository {
     private final RowMapper<Item> itemRowMapper = (rs, rowNum) -> {
         Item item = new Item();
         item.setId(rs.getLong("id"));
+        // O banco guarda o texto 'PERDIDO' ou 'ENCONTRADO'; valueOf transforma no enum
+        item.setTipo(TipoItem.valueOf(rs.getString("tipo")));
         item.setTitulo(rs.getString("titulo"));
         item.setDescricao(rs.getString("descricao"));
         item.setCategoria(rs.getString("categoria"));
@@ -50,7 +53,8 @@ public class ItemRepository {
         return jdbcTemplate.query(sql, itemRowMapper);
     }
 
-    // O "?" é preenchido pelo PreparedStatement: o id nunca vira parte do texto do SQL
+    // O "?" é preenchido pelo PreparedStatement: o id nunca vira parte do texto do
+    // SQL
     public Optional<Item> findById(Long id) {
         String sql = "SELECT " + COLUNAS + " FROM item WHERE id = ?";
         try {
@@ -62,27 +66,27 @@ public class ItemRepository {
     }
 
     public Long insert(Item item) {
-        // TODO: 'PERDIDO' fixo só porque a coluna tipo é NOT NULL e o Item ainda não tem tipo.
-        //       Quando o tipo voltar, troque por ? e inclua o ps.setString correspondente.
         String sql = """
                 INSERT INTO item (tipo, titulo, descricao, categoria, localizacao,
                                   data_ocorrencia, nome_contato, email_contato,
                                   telefone_contato, devolvido)
-                VALUES ('PERDIDO', ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[] { "id" });
-            ps.setString(1, item.getTitulo());
-            ps.setString(2, item.getDescricao());
-            ps.setString(3, item.getCategoria());
-            ps.setString(4, item.getLocalizacao());
-            ps.setDate(5, Date.valueOf(item.getDataOcorrencia()));
-            ps.setString(6, item.getNomeContato());
-            ps.setString(7, item.getEmailContato());
-            ps.setString(8, item.getTelefoneContato());
-            ps.setBoolean(9, item.isDevolvido());
+            // name() devolve o texto do enum: "PERDIDO" ou "ENCONTRADO"
+            ps.setString(1, item.getTipo().name());
+            ps.setString(2, item.getTitulo());
+            ps.setString(3, item.getDescricao());
+            ps.setString(4, item.getCategoria());
+            ps.setString(5, item.getLocalizacao());
+            ps.setDate(6, Date.valueOf(item.getDataOcorrencia()));
+            ps.setString(7, item.getNomeContato());
+            ps.setString(8, item.getEmailContato());
+            ps.setString(9, item.getTelefoneContato());
+            ps.setBoolean(10, item.isDevolvido());
             return ps;
         }, keyHolder);
 
@@ -93,12 +97,13 @@ public class ItemRepository {
     public int update(Item item) {
         String sql = """
                 UPDATE item
-                   SET titulo = ?, descricao = ?, categoria = ?, localizacao = ?,
+                   SET tipo = ?, titulo = ?, descricao = ?, categoria = ?, localizacao = ?,
                        data_ocorrencia = ?, nome_contato = ?, email_contato = ?,
                        telefone_contato = ?, devolvido = ?
                  WHERE id = ?
                 """;
         return jdbcTemplate.update(sql,
+                item.getTipo().name(),
                 item.getTitulo(),
                 item.getDescricao(),
                 item.getCategoria(),
