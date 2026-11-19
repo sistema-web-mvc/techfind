@@ -27,6 +27,9 @@
 
                 <div class="card">
                     <div class="card-body p-4">
+                        <span class="badge mb-2"
+                            th:classappend="${item.tipo.name() == 'PERDIDO'} ? 'bg-danger' : 'bg-success'"
+                            th:text="${item.tipo.descricao}">Tipo</span>
                         <h1 class="h3" th:text="${item.titulo}">Título</h1>
                         <p class="text-muted" th:if="${item.descricao != null}" th:text="${item.descricao}">Descrição
                         </p>
