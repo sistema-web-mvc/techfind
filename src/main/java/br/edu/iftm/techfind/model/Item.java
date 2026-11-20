@@ -1,6 +1,7 @@
 package br.edu.iftm.techfind.model;
 
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Item {
 
@@ -10,6 +11,7 @@ public class Item {
     private String descricao; // descricao VARCHAR(500)
     private String categoria; // categoria VARCHAR(50)
     private String localizacao; // localizacao VARCHAR(50)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataOcorrencia; // data_ocorrencia DATE
     private String nomeContato; // nome_contato VARCHAR(100)
     private String emailContato; // email_contato VARCHAR(100)

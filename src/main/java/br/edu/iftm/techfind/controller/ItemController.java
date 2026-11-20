@@ -4,10 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.iftm.techfind.model.Item;
+import br.edu.iftm.techfind.model.TipoItem;
 import br.edu.iftm.techfind.service.ItemService;
 
 @Controller
@@ -34,7 +38,23 @@ public class ItemController {
     }
 
     // ===== E3 · Criar item (Alfredo) =====
-    // (os métodos novo e criar entram aqui)
+    // Mostra o formulário vazio
+    @GetMapping("/itens/novo")
+    public String novo(Model model) {
+        Item item = new Item();
+        item.setTipo(TipoItem.PERDIDO); // já vem marcado "Perdi"
+        model.addAttribute("item", item);
+        return "form-item";
+    }
+
+    // Recebe o formulário preenchido e grava no banco
+    @PostMapping("/itens")
+    public String criar(@ModelAttribute("item") Item item, RedirectAttributes redirect) {
+        itemService.cadastrar(item);
+        redirect.addFlashAttribute("mensagem", "Item publicado com sucesso.");
+        return "redirect:/"; // POST-Redirect-GET
+    }
+
 
     // ===== E3 · Editar item (Yamada) =====
     // (os métodos editar e atualizar entram aqui)
