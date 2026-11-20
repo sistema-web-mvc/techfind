@@ -80,6 +80,10 @@
                     <!-- E3 · botão Editar (Yamada) -->
 
                     <!-- E3 · botão Excluir (Felipe Nogueira) -->
+                    <form th:action="@{/itens/{id}/excluir(id=${item.id})}" method="post"
+                        onsubmit="return confirm('Tem certeza de que deseja excluir este item? Essa ação não pode ser desfeita.');">
+                        <button type="submit" class="btn btn-outline-danger">Excluir</button>
+                    </form>
 
                 </div>
                 <a href="/" class="btn btn-outline-secondary mt-3">← Voltar para a lista</a>

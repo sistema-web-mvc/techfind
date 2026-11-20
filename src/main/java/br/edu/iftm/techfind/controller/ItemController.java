@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.iftm.techfind.model.Item;
 import br.edu.iftm.techfind.service.ItemService;
@@ -40,7 +42,13 @@ public class ItemController {
     // (os métodos editar e atualizar entram aqui)
 
     // ===== E3 · Excluir item (Felipe Nogueira) =====
-    // (o método excluir entra aqui)
+    // Exclui o item e volta para a lista com uma mensagem de sucesso
+    @PostMapping("/itens/{id}/excluir")
+    public String excluir(@PathVariable Long id, RedirectAttributes redirect) {
+        itemService.excluir(id);
+        redirect.addFlashAttribute("mensagem", "Item excluído com sucesso.");
+        return "redirect:/"; // POST-Redirect-GET
+    }
 
     // ===== E3 · Marcar como devolvido (Luany) =====
     // (o método devolver entra aqui)
