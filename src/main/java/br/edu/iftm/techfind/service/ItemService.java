@@ -36,4 +36,8 @@ public class ItemService {
     public boolean excluir(Long id) {
         return itemRepository.deleteById(id) > 0;
     }
+
+        public boolean marcarComoDevolvido(Long id) {
+        return itemRepository.marcarComoDevolvido(id) > 0;
+    }
 }

@@ -63,5 +63,11 @@ public class ItemController {
     // (o método excluir entra aqui)
 
     // ===== E3 · Marcar como devolvido (Luany) =====
-    // (o método devolver entra aqui)
+        // Marca como devolvido e volta para o detalhe do mesmo item
+    @PostMapping("/itens/{id}/devolver")
+    public String devolver(@PathVariable Long id, RedirectAttributes redirect) {
+        itemService.marcarComoDevolvido(id);
+        redirect.addFlashAttribute("mensagem", "Item marcado como devolvido.");
+        return "redirect:/itens/" + id; // POST-Redirect-GET
+    }
 }

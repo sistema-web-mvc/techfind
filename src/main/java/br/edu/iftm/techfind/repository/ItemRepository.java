@@ -120,4 +120,9 @@ public class ItemRepository {
     public int deleteById(Long id) {
         return jdbcTemplate.update("DELETE FROM item WHERE id = ?", id);
     }
+
+        // Marca o item como devolvido. Devolve quantas linhas foram alteradas (0 ou 1)
+    public int marcarComoDevolvido(Long id) {
+        return jdbcTemplate.update("UPDATE item SET devolvido = TRUE WHERE id = ?", id);
+    }
 }
