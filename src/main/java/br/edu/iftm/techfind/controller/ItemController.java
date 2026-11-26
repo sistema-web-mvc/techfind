@@ -57,7 +57,28 @@ public class ItemController {
 
 
     // ===== E3 · Editar item (Yamada) =====
-    // (os métodos editar e atualizar entram aqui)
+    // Mostra o formulário já preenchido com os dados do item
+        @GetMapping("/itens/{id}/editar")
+    public String editar(@PathVariable Long id, Model model) {
+        Item item = itemService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item não encontrado"));
+        model.addAttribute("item", item);
+        return "form-item";
+    }
+
+    // Recebe o formulário editado e atualiza no banco
+    @PostMapping("/itens/{id}")
+    public String atualizar(@PathVariable Long id, @ModelAttribute("item") Item item,
+            RedirectAttributes redirect) {
+        Item atual = itemService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item não encontrado"));
+        item.setId(id);
+        // O formulário não tem o campo "devolvido": mantém o valor que já estava no banco
+        item.setDevolvido(atual.isDevolvido());
+        itemService.atualizar(item);
+        redirect.addFlashAttribute("mensagem", "Item atualizado com sucesso.");
+        return "redirect:/itens/" + id; // POST-Redirect-GET
+    }
 
     // ===== E3 · Excluir item (Felipe Nogueira) =====
     // Exclui o item e volta para a lista com uma mensagem de sucesso

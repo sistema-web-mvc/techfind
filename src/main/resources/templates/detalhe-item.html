@@ -79,6 +79,7 @@
                 <!-- Ações do item -->
                 <div class="d-flex gap-2 mt-3">
                     <!-- E3 · botão Editar (Yamada) -->
+                    <a th:href="@{/itens/{id}/editar(id=${item.id})}" class="btn btn-outline-primary">Editar</a>
 
                     <!-- E3 · botão Excluir (Felipe Nogueira) -->
                     <form th:action="@{/itens/{id}/excluir(id=${item.id})}" method="post"
