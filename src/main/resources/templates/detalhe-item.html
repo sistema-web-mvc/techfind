@@ -66,11 +66,12 @@
                     </div>
                 </div>
 
-                <!-- Marcar como devolvido -->
-                <div class="card mt-3">
+                                <!-- Marcar como devolvido (só aparece se o item ainda não foi devolvido) -->
+                <div class="card mt-3" th:unless="${item.devolvido}">
                     <div class="card-body p-4 d-flex justify-content-between align-items-center gap-3">
                         <p class="mb-0 text-muted">Este item já voltou para o dono?</p>
-                        <form onsubmit="return confirm('Tem certeza de que este item já foi devolvido?');">
+                        <form th:action="@{/itens/{id}/devolver(id=${item.id})}" method="post"
+                            onsubmit="return confirm('Tem certeza de que este item já foi devolvido?');">
                             <button type="submit" class="btn btn-success">Marcar como devolvido</button>
                         </form>
                     </div>
