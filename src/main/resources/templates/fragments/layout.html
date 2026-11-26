@@ -12,6 +12,13 @@
             </div>
         </div>
     </nav>
+    <!-- Fragmento: mensagem de sucesso (flash). Só aparece quando existe uma mensagem -->
+    <div th:fragment="mensagens" class="container mt-3" th:if="${mensagem != null}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensagem}">Mensagem de sucesso</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+    </div>
 
     <!-- Fragmento: rodapé -->
     <footer th:fragment="rodape" class="bg-light text-center text-muted py-3 mt-5">
