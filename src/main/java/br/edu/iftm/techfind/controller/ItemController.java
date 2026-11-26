@@ -60,7 +60,13 @@ public class ItemController {
     // (os métodos editar e atualizar entram aqui)
 
     // ===== E3 · Excluir item (Felipe Nogueira) =====
-    // (o método excluir entra aqui)
+    // Exclui o item e volta para a lista com uma mensagem de sucesso
+    @PostMapping("/itens/{id}/excluir")
+    public String excluir(@PathVariable Long id, RedirectAttributes redirect) {
+        itemService.excluir(id);
+        redirect.addFlashAttribute("mensagem", "Item excluído com sucesso.");
+        return "redirect:/"; // POST-Redirect-GET
+    }
 
     // ===== E3 · Marcar como devolvido (Luany) =====
         // Marca como devolvido e volta para o detalhe do mesmo item
